@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+    integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+
+  <style>
+    .card {
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      border-radius: 7px;
+    }
+
+    .customCardBody {
+      height: 30vh;
+      overflow: auto;
+    }
+
+    .customCardBody .card-title {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <nav class="navbar navbar-toggleable navbar-info bg-info" id="nav-main">
+      <a class="navbar-brand" href="#"><img src="{% static 'image/logo_child.png' %}" width="50" height="50px"
+          alt="Logo"></a>
+      <ul class="nav navbar-nav mr-auto">
+
+        <li class="nav-item active">
+          <a class="nav-link text-white" href="{% url 'homepage' %}">HOME<span class="sr-only">(current)</span> </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle  text-white" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Chid Care Institutes
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'Children_Homes' %}">Children Homes</a>
+            <a class="dropdown-item" href="{% url 'Special_Homes' %}">Special Homes</a>
+            <a class="dropdown-item" href="{% url 'Observation_Homes' %}">Obesrvation Homes</a>
+            <a class="dropdown-item" href="{% url 'Place_For_Safety' %}">Places of Safety</a>
+          </div>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link text-white" href="{% url 'post_list' %}">Child Welfare Committee</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'lost' %}">Lost & Found</a>
+        </li>
+
+
+        <li class="nav-item">
+        </li>
+        <!-- <li class="nav-item">
+            {% if user.is_authenticated %}
+                <a class="nav-link text-white" href="#">Hello {{ user.username }}</a>
+            {% endif %}
+            </li> -->
+
+      </ul>
+      <!-- <form class="form-inline pull-md-right">
+            <input class="form-control" type="text" placeholder="Search">
+            <button class="btn" type="submit">Search</button>
+        </form> -->
+    </nav>
+  </div>
+
+  <div style="height: 100vh;">
+    <div class="row" style="background-color: black">
+      <div class="span6 col-md-6 col-xs-6">
+        <div class="showcase-left" style="height: 90vh;width: 50vw;margin: 0px;padding: 0px">
+          <div style="background-color: black; padding:11vh 7vw 12vh 7vw;margin: 0px;">
+            <h1 class="text-white" style="text-align: center">Children Welfare Committee</h1>
+            <p class="text-white" style="text-align: center">Children Welfare Committee (CWC) is a body of the State
+              Government under the Juvenile Justice Act to look after cases of children in need of care and protection.
+            </p>
+            <p class="text-white" style="text-align: center">CWC functions like a court and conducts regular visits to
+              district’s CCIs.At least 3 members of CWC must be present when disposing a case.</p>
+            <p class="text-white" style="text-align: center">The majority opinion prevails. The chairperson carries the
+              deciding vote in case of no majority. The maximum limit for CWCs to dispose any pending case is 4 months.
+            </p>
+            <p class="text-white" style="text-align: center">If a child is abandoned, orphaned or surrendered, CWC can
+              declare the child legally free for adoption.</p>
+          </div>
+        </div>
+      </div>
+      <div class="span6 col-md-6 col-xs-6" style="background-color: black;">
+        <div class="showcase-right">
+          <img src="{% static 'image/cwc.jpg'%} ">
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <p style="color: rgba(248,41,23,0.9) ; font-size: 5vh; margin-top:30px;"><strong>Recent cases of CWC</strong></p>
+
+      <div id=" accordion" role="tablist">
+
+        {% for post in posts %}
+        <div class="card mt-4 mb-4">
+          <div class="card-header">
+            <span class="place" style="
+                font-weight: 700;
+                margin-right: 7px;
+            ">Place:</span>{{post.city}} {{post.state}}
+          </div>
+          <div class="card-body p-3 customCardBody">
+            <h5 class="card-title">{{post.title}}</h5>
+            <p class="card-text">{{post.description}}</p>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+      <nav class="navbar navbar-toggleable d-inline">
+        <p style="color: rgba(248,41,23,0.9) ; font-size: 5vh"><strong>Any cases of child labour in your knowledge?
+            Please report. </strong></p>
+        <p style="color: rgba(248,41,23,0.9) ; font-size: 5vh">Your identity is secured with us</p>
+      </nav>
+
+      <hr>
+      <!-- Form start -->
+      <div class="">
+        <form action="#" method="POST" target="_blank" autocomplete="on" class="case-form border border-danger">
+          <fieldset>
+            <legend></legend>
+            <div class="form-group">
+              {{ form.as_p }}
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block">Save</button>
+
+
+          </fieldset>
+        </form>
+      </div>
+      <!-- Form end -->
+
+    </div>
+    <!-- Footer Start -->
+    <footer class="text-center text-lg-start bg-light text-muted">
+      <section class="">
+        <div class="container text-center text-md-start mt-5">
+          <div class="row mt-3">
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+              <h6 class="text-uppercase fw-bold mb-4">
+                <i class="fas fa-gem me-3"></i>Child Adoption
+              </h6>
+              <p>
+                Adopting a child may not change the world, but it will change their world forever.
+              </p>
+            </div>
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+              <h6 class="text-uppercase fw-bold mb-4">
+                Products
+              </h6>
+              <p>
+                <a href="{% url 'homepage' %}" class="text-reset">Home</a>
+              </p>
+              <p>
+                <a href="{% url 'post_list' %}" class="text-reset">Child Welfare Committee</a>
+              </p>
+              <p>
+                <a href="{% url 'lost' %}" class="text-reset">Lost and Found</a>
+              </p>
+
+            </div>
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+              <h6 class="text-uppercase fw-bold mb-4">
+                Useful links
+              </h6>
+              <p>
+                <a href="{% url 'Children_Homes' %}" class="text-reset">Children Homes</a>
+              </p>
+              <p>
+                <a href="{% url 'Special_Homes' %}" class="text-reset">Special Homes</a>
+              </p>
+              <p>
+                <a href="{% url 'Observation_Homes' %}" class="text-reset">Observation Homes</a>
+              </p>
+              <p>
+                <a href="{% url 'Place_For_Safety' %}" class="text-reset">Place For Safety</a>
+              </p>
+            </div>
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+              <p>Ahmedabad, Gujarat, India</p>
+              <p>
+
+                info@childadoption.com
+              </p>
+              <p>+ 91 96 58 96589</p>
+              <p>+ 91 96 58 96589</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2023 Copyright:
+        <a class="text-reset fw-bold" href="#">Child Adoption</a>
+      </div>
+    </footer>
+    <!-- Footer end -->
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+      integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+      integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+      integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+      crossorigin="anonymous"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"></script> -->
+
+</body>
+
+</html>
