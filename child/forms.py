@@ -29,9 +29,18 @@ class ChildForm(forms.ModelForm):
 		fields =('name','currentcity','age','cci','guardian','aadhar','dob')
 
 class ParentForm(forms.ModelForm):
+	name=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Name'}))
+	age=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Age'}))
+	Gender=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Gender'}))
+	Martialstatus=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Martial Status'}))
+	city=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter City'}))
+	state=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter State'}))
+	Job_description=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Job Description'}))
+	adoptionreason=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Adoption Reason'}))
+	aadhar=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Aadhar No'}))
 	class Meta:
 		model=parent
-		fields=('__all__')
+		fields=(['name','age','Gender','Martialstatus','city','state','Job_description','adoptionreason','aadhar'])
 
 class DonorForm(forms.ModelForm):
 	name=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter your name'}))

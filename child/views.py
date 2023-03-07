@@ -9,7 +9,8 @@ from .forms import LostForm ,ChildForm,ParentForm,DonorForm,PostForm,CommentForm
 
 
 def homepage(request):
-	return render(request,"child/homepage.html")
+	postData = Post.objects.all()
+	return render(request,"child/homepage.html", {"postData": postData})
 
 def institute(request):
 	ins=typecci.objects.all()
@@ -101,6 +102,7 @@ def adoptionlist(request):
 def parentform(request):
 	if request.method == "POST":
 		form = ParentForm(request.POST)
+		print(form, ': this is form')
 		if form.is_valid():
 			child = form.save(commit=False)
 			child.save()
