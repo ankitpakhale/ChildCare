@@ -94,6 +94,7 @@ class donor(models.Model):
 	Occupation=models.CharField(max_length=50)
 	Emailid=models.CharField(max_length=50)
 
+	amount=models.IntegerField(max_length=25)
 	Bank_account_no=models.CharField(max_length=25)
 	IFSC_code=models.CharField(max_length=20)
 	Aadharcardno=models.CharField(max_length=20)
@@ -108,9 +109,6 @@ class Post(models.Model):
 	created_date=models.DateTimeField(default=timezone.now)
 	date=models.DateTimeField(blank=True,null=True)
 
-
-
-	
 	def publish(self):
 		self.published_date=timezone.now()
 		self.save()
@@ -145,7 +143,6 @@ class Question(models.Model):
 		now=timezone.now()
 		return now-datetime.timedelta(days=1)<=self.pub_date<=now
 
-
 class cases(models.Model):
 	description=models.TextField()
 	state=models.CharField(max_length=25)
@@ -156,19 +153,9 @@ class cases(models.Model):
 	def __str__(self):
 		return self.title
 
-
-
-
-
-
-
-
-
-	
-	
-		
-
-
-
-
-# Create your models here.
+class Gallery(models.Model):
+	name=models.CharField(max_length=30)
+	text=models.CharField(max_length=250)
+	image = models.ImageField(upload_to='Gallery/', blank=True, null=True)
+	def __str__(self):
+		return self.name

@@ -2,12 +2,13 @@ from django.contrib import admin
 
 from .models import childinfo,typecci,cci,lostchild
 
-from .models import Post,Comment,Question,cases,parent,donor
+from .models import Post,Comment,Question,cases,parent,donor, Gallery
 
 from django.contrib.auth.models import Group
 
 admin.site.unregister(Group)
 
+admin.site.register(Gallery)
 admin.site.register(Post)
 admin.site.register(cases)
 admin.site.register(Comment)

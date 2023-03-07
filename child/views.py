@@ -1,6 +1,6 @@
 from django.shortcuts import render ,get_object_or_404,redirect
 from django.utils import timezone
-from .models import childinfo, userdata,typecci,cci,lostchild,parent,donor,Post ,Comment,cases,Question
+from .models import childinfo, userdata,typecci,cci,lostchild,parent,donor,Post ,Comment,cases,Question, Gallery
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm
@@ -9,7 +9,9 @@ from .forms import LostForm ,ChildForm,ParentForm,DonorForm,PostForm,CommentForm
 
 
 def homepage(request):
-	return render(request,"child/homepage.html")
+	print("This is home page")
+	galleryData = Gallery.objects.all()
+	return render(request,"child/homepage.html", {'galleryData': galleryData})
 
 def institute(request):
 	ins=typecci.objects.all()
@@ -125,12 +127,8 @@ def donorform(request):
 def post_list(request):
 	posts=cases.objects.all()
 	
-	for i in posts:
-		print(i.id)
-		print(i.city)
-		print(i.description)
-    
 	if request.method == "POST":
+		print("post clicked")
 		form = CaseForm(request.POST)
 		if form.is_valid():
 			case = form.save(commit=False)
@@ -140,6 +138,7 @@ def post_list(request):
 		form = CaseForm()
 	return render(request, 'child/post_list.html', {'form': form, 'posts':posts})
 	# return render(request,"child/post_list.html",{})
+
 
 
 def post_detail(request, pk):    
@@ -241,21 +240,6 @@ def detail(request,pk):
     question=get_object_or_404(Question,pk=pk)
     
     return render(request,"blog/detail.html",{"question":question})
-
-
-
-
-def caseform(request):
-	if request.method == "POST":
-		form = CaseForm(request.POST)
-		if form.is_valid():
-			case = form.save(commit=False)
-			case.save()
-			return redirect('post_list')
-	else:
-		form = CaseForm()
-	return render(request, 'child/post_list.html', {'form': form})
-
 
 
 

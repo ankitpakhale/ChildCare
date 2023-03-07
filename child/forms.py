@@ -14,10 +14,15 @@ class CommentForm(forms.ModelForm):
         fields = ('author', 'text',)
 	
 class LostForm(forms.ModelForm):
-    class Meta:
-        model = lostchild
-        fields = ('name', 'cityfound',"Detail",'age')
-	
+	name=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Your Name'}))
+	cityfound=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Your City'}))
+	Detail=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Your Detail'}))
+	age=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Your Age'}))
+    
+	class Meta:
+		model = lostchild
+		fields = ('name', 'cityfound',"Detail",'age')
+
 class ChildForm(forms.ModelForm):
 	class Meta:
 		model= childinfo
@@ -29,11 +34,27 @@ class ParentForm(forms.ModelForm):
 		fields=('__all__')
 
 class DonorForm(forms.ModelForm):
+	name=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter your name'}))
+	age=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter your age'}))
+	Gender=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter your Gender'}))
+	Address=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter your Address'}))
+	Occupation=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter your Occupation'}))
+	Emailid=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter your Email Id'}))
+	Bank_account_no=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter your Bank Account No'}))
+	IFSC_code=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter your IFSC Code'}))
+	Aadharcardno=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter your Aadhar Card No'}))
+	amount=forms.IntegerField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Donation Amount'}))
+
 	class Meta:
 		model=donor
-		fields=('__all__')
+		fields=(["name", "age", "Gender", "Address", "Occupation", "Emailid", "amount", "Bank_account_no", "IFSC_code", "Aadharcardno"])
 
 class CaseForm(forms.ModelForm):
+	description = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter description'}))
+	state = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter state'}))
+	city = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter city'}))
+	title = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter title'}))
+	Address = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Address'}))
 	class Meta:
 		model=cases
-		fields=('__all__')
+		fields=(['description', 'state', 'city', 'title', 'Address'])

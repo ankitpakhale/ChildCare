@@ -11,7 +11,23 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
     integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <style>
+    .card {
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      border-radius: 7px;
+      padding: 2rem
+    }
 
+    .btn-success {
+      background-color: #5bc0de;
+      border: #5bc0de;
+    }
+
+    .btn-success:hover {
+      background-color: #48a4c0;
+      border: #48a4c0;
+    }
+  </style>
 </head>
 
 <body
@@ -62,17 +78,24 @@
   </div>
 
   <div class="container-fluid">
-    <h1 class="text-center text-white">Add Child Details</h1>
-    <div class="row">
-      <div class="col-md-4 col-xs-12"></div>
-      <div class="col-md-4 col-xs-12">
-        <form style="background-color: aliceblue; padding: 50px;" method="post" class="lost-form">
+    <div class="row d-flex justify-content-center">
+      <div class="card col-md-4 col-xs-12 mt-5">
+        <h1 class="text-center text-dark">Add Child Details</h1>
+        <form method="post" class="mt-3 lost-form">
           {% csrf_token %}
+
           <div class="form-group">
-            {{ form.as_p }}
+            {{ form.name }}
           </div>
-
-
+          <div class="form-group">
+            {{ form.cityfound }}
+          </div>
+          <div class="form-group">
+            {{ form.Detail }}
+          </div>
+          <div class="form-group">
+            {{ form.age }}
+          </div>
 
           <button type="submit" class="btn btn-success btn-block">Save</button>
         </form>
@@ -80,17 +103,16 @@
 
       </div>
     </div>
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-    integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-    integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-    integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+      integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+      integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+      integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+      crossorigin="anonymous"></script>
 </body>
 
 </html>
