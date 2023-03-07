@@ -152,10 +152,3 @@ class cases(models.Model):
 
 	def __str__(self):
 		return self.title
-
-class Gallery(models.Model):
-	name=models.CharField(max_length=30)
-	text=models.CharField(max_length=250)
-	image = models.ImageField(upload_to='Gallery/', blank=True, null=True)
-	def __str__(self):
-		return self.name
