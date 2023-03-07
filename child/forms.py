@@ -58,3 +58,5 @@ class CaseForm(forms.ModelForm):
 	class Meta:
 		model=cases
 		fields=(['description', 'state', 'city', 'title', 'Address'])
+  
+  

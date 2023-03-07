@@ -9,9 +9,7 @@ from .forms import LostForm ,ChildForm,ParentForm,DonorForm,PostForm,CommentForm
 
 
 def homepage(request):
-	print("This is home page")
-	galleryData = Gallery.objects.all()
-	return render(request,"child/homepage.html", {'galleryData': galleryData})
+	return render(request,"child/homepage.html")
 
 def institute(request):
 	ins=typecci.objects.all()
