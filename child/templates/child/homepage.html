@@ -147,39 +147,18 @@ box-shadow: 0px 6px 25px 4px rgba(0,0,0,1); margin: 50px 50px; padding: 40px 30p
     </div>
 
     <div class="container">
-      <div class="row" style="padding: 50px 0px 100px 0px">
-        <div class="col-md-4 col-sm-4">
-          <div style="height: 400px" class="card">
-            <img style="height: 80%;" class="card-img-top" src="{% static 'image/boychild3.jpeg' %}">
-            <div class="card-body">
-              <h4 class="card-title">Tripti</h4>
-              <p class="card-text">7 years old girl lost in delhi. <small class="text-muted">3 minutes ago</small></p>
-            </div>
-          </div>
+
+      {% for i in info%}
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <img style="width: 200px; height:200px" src={{ i.profile_image.url }} alt="Card image cap">
+          <h6 class="card-text p-2">{{i.name}}</h6>
+          <h6 class="card-text p-2">{{i.cityfound}}</h6>
+          <h6 class="card-text p-2">{{i.age}}</h6>
         </div>
-
-        <div class="col-md-4 col-sm-4">
-          <div style="height: 400px;" class="card">
-            <img style="height:75%" class="card-img-top" src="{% static 'image/boychild4.jpeg' %}">
-            <div class="card-body">
-              <h4 class="card-title">Anega</h4>
-              <p class="card-text">15 years old girl lost in Mumbai <small class="text-muted">3 hours ago</small></p>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="col-md-4 col-sm-4">
-          <div style="height: 400px;" class="card">
-            <img style="height: 80%;" class="card-img-top" src="{% static 'image/boychild5.jpg' %}">
-            <div class="card-body">
-              <h4 class="card-title">jatin</h4>
-              <p class="card-text">boy lost in Agra <small class="text-muted">4 days ago</small></p>
-            </div>
-          </div>
-        </div>
-
       </div>
+      {% endfor%}
+
     </div>
   </div>
 

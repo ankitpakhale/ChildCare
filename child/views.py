@@ -10,7 +10,8 @@ from .forms import LostForm ,ChildForm,ParentForm,DonorForm,PostForm,CommentForm
 
 def homepage(request):
 	postData = Post.objects.all()
-	return render(request,"child/homepage.html", {"postData": postData})
+	info=lostchild.objects.all()
+	return render(request,"child/homepage.html", {"postData": postData, "info": info})
 
 def institute(request):
 	ins=typecci.objects.all()
