@@ -6,12 +6,24 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login,authenticate
 from .forms import LostForm ,ChildForm,ParentForm,DonorForm,PostForm,CommentForm,CaseForm
+from django.db.models.query_utils import Q
 
 
 def homepage(request):
 	postData = Post.objects.all()
 	info=lostchild.objects.all()
 	return render(request,"child/homepage.html", {"postData": postData, "info": info})
+
+def lostChild(request):
+	info=lostchild.objects.all()
+ 
+	childName = request.GET.get('childName')
+	if childName:
+		info = lostchild.objects.filter(Q(name__icontains = childName) | Q(age__icontains = childName))
+	else:
+		info = lostchild.objects.all()
+	print(info)
+	return render(request,"child/lostChild.html", {"info": info})
 
 def institute(request):
 	ins=typecci.objects.all()

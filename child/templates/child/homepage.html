@@ -141,27 +141,6 @@ box-shadow: 0px 6px 25px 4px rgba(0,0,0,1); margin: 50px 50px; padding: 40px 30p
   </div>
 
 
-  <div class="panel panel-default" style="height: 80vh; background-color:#5bc0de">
-    <div class="container pt-5">
-      <h4>Search for lost children</h4>
-    </div>
-
-    <div class="container">
-
-      {% for i in info%}
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <img style="width: 200px; height:200px" src={{ i.profile_image.url }} alt="Card image cap">
-          <h6 class="card-text p-2">{{i.name}}</h6>
-          <h6 class="card-text p-2">{{i.cityfound}}</h6>
-          <h6 class="card-text p-2">{{i.age}}</h6>
-        </div>
-      </div>
-      {% endfor%}
-
-    </div>
-  </div>
-
   <div class="no-repeat center fixed" style="background-size: cover; width: 100%;">
     <div class="row" style="  background-color:#212529;
   border: 1px solid black;

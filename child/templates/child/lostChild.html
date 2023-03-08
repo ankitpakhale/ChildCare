@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+    integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+  <style>
+    .card {
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      border-radius: 7px;
+
+    }
+
+    .btn-success {
+      background-color: #5bc0de;
+      border: #5bc0de;
+    }
+
+    .btn-success:hover {
+      background-color: #48a4c0;
+      border: #48a4c0;
+    }
+  </style>
+</head>
+
+<body style="width: 100%">
+  <div>
+    <nav class="navbar navbar-toggleable navbar-info bg-info" id="nav-main">
+      <a class="navbar-brand" href="{% url 'homepage' %}"><img src="{% static 'image/logo_child.png' %}" width="50"
+          height="50px" alt="Logo"></a>
+      <ul class="nav navbar-nav mr-auto">
+
+        <li class="nav-item active">
+          <a class="nav-link text-white" href="{% url 'homepage' %}">HOME<span class="sr-only">(current)</span> </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle  text-white" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Chid Care Institutes
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'Children_Homes' %}">Children Homes</a>
+            <a class="dropdown-item" href="{% url 'Special_Homes' %}">Special Homes</a>
+            <a class="dropdown-item" href="{% url 'Observation_Homes' %}">Obesrvation Homes</a>
+            <a class="dropdown-item" href="{% url 'Place_For_Safety' %}">Places of Safety</a>
+          </div>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link text-white" href="{% url 'post_list' %}">Child Welfare Committee</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'lost' %}">Lost & Found</a>
+        </li>
+
+
+        <li class="nav-item">
+        </li>
+        <!-- <li class="nav-item">
+            {% if user.is_authenticated %}
+                <a class="nav-link text-white" href="#">Hello {{ user.username }}</a>
+            {% endif %}
+            </li> -->
+
+      </ul>
+      <!-- <form class="form-inline pull-md-right">
+            <input class="form-control" type="text" placeholder="Search">
+            <button class="btn" type="submit">Search</button>
+        </form> -->
+    </nav>
+  </div>
+
+
+  <div class="panel panel-default pb-4" style="height: auto; background-color:#5bc0de">
+    <div class="container pt-5">
+
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <h2>Search for lost children</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+          <form class="form-inline">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" name="childName" type="search"
+              placeholder="Search by Name and Age" aria-label="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        {% for i in info%}
+        <div class="col-md-4 col-sm-4 mt-2 mb-2">
+          <div class="card" style="width: 16rem;">
+            <img style="width: 100%; height:220px" src={{ i.profile_image.url }} alt="Card image cap">
+            <div class="card-body p-2 m-2">
+              <h6 class="card-text">Name: {{i.name}}</h6>
+              <h6 class="card-text">City: {{i.cityfound}}</h6>
+              <h6 class="card-text">Age: {{i.age}}</h6>
+            </div>
+          </div>
+        </div>
+        {% endfor%}
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Start -->
+  <footer class="text-center text-lg-start bg-light text-muted">
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <div class="row mt-3">
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Child Adoption
+            </h6>
+            <p>
+              Adopting a child may not change the world, but it will change their world forever.
+            </p>
+          </div>
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              Products
+            </h6>
+            <p>
+              <a href="{% url 'homepage' %}" class="text-reset">Home</a>
+            </p>
+            <p>
+              <a href="{% url 'post_list' %}" class="text-reset">Child Welfare Committee</a>
+            </p>
+            <p>
+              <a href="{% url 'lost' %}" class="text-reset">Lost and Found</a>
+            </p>
+
+          </div>
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              Useful links
+            </h6>
+            <p>
+              <a href="{% url 'Children_Homes' %}" class="text-reset">Children Homes</a>
+            </p>
+            <p>
+              <a href="{% url 'Special_Homes' %}" class="text-reset">Special Homes</a>
+            </p>
+            <p>
+              <a href="{% url 'Observation_Homes' %}" class="text-reset">Observation Homes</a>
+            </p>
+            <p>
+              <a href="{% url 'Place_For_Safety' %}" class="text-reset">Place For Safety</a>
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p>Ahmedabad, Gujarat, India</p>
+            <p>
+
+              info@childadoption.com
+            </p>
+            <p>+ 91 96 58 96589</p>
+            <p>+ 91 96 58 96589</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2023 Copyright:
+      <a class="text-reset fw-bold" href="#">Child Adoption</a>
+    </div>
+  </footer>
+  <!-- Footer end -->
+
+  <!-- jQuery first, then Tether, then Bootstrap JS. -->
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+    integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+    integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+    integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

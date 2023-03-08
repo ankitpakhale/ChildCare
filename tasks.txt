@@ -1,0 +1,9 @@
+Done === http://127.0.0.1:8000/adoptionlist/ --> design change 3 divs in single rows
+
+error in working === http://127.0.0.1:8000/adoptionlist/parentform/ --> design change , check working 
+
+Done === Search is pending === Search for lost children --> make new page for  lost children with search bar
+
+http://127.0.0.1:8000/donorform/ --> payment integration
+
+Done === http://127.0.0.1:8000/admin/child/post/ --> show data in frontend

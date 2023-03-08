@@ -1,2 +1,0 @@
-/cwc/
-/addchild/ --> save data in lost child table 
