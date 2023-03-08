@@ -142,7 +142,6 @@ def donorform(request):
 def donorPage(request):
 	donors = donor.objects.all()
 	email = request.GET.get('email')
-	print(email, "; email")
 	if email != None:
 		request.session['email'] = email
 		return redirect("paymentdata")
@@ -199,14 +198,9 @@ def post_list(request):
 	return render(request, 'child/post_list.html', {'form': form, 'posts':posts})
 	# return render(request,"child/post_list.html",{})
 
-
-
 def post_detail(request, pk):    
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'child/post_detail.html', {'post': post})
-
-
-
 
 def post_new(request):
     if request.method == "POST":
@@ -220,14 +214,6 @@ def post_new(request):
     else:
         form = PostForm()
     return render(request, 'child/post_edit.html', {'form': form})
-
-
-
-
-
-
-
-
 
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
