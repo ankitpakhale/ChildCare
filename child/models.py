@@ -98,6 +98,7 @@ class donor(models.Model):
 	Bank_account_no=models.CharField(max_length=25)
 	IFSC_code=models.CharField(max_length=20)
 	Aadharcardno=models.CharField(max_length=20)
+	isPaid=models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.name

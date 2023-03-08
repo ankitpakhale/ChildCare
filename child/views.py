@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login,authenticate
 from .forms import LostForm ,ChildForm,ParentForm,DonorForm,PostForm,CommentForm,CaseForm
 from django.db.models.query_utils import Q
+import razorpay
 
 
 def homepage(request):
@@ -132,10 +133,56 @@ def donorform(request):
 			donor = form.save(commit=False)
 			donor.save()
 			return redirect('homepage')
+
 	else:
 		form = DonorForm()
 	return render(request, 'child/donorform.html', {'form': form})
 
+
+def donorPage(request):
+	donors = donor.objects.all()
+	email = request.GET.get('email')
+	print(email, "; email")
+	if email != None:
+		request.session['email'] = email
+		return redirect("paymentdata")
+	return render(request, 'child/donorPage.html', {'donors': donors})
+
+def paymentData(request):
+	if 'email' in request.session:
+		donorData = donor.objects.filter(Emailid=request.session['email'])[0]  
+		donationAmount = donorData.amount*100
+
+		if request.method == "POST":
+			# # ---------------------------------------------------------
+			client = razorpay.Client(
+			auth=("rzp_test_qDwTmKnksUVsaC", "QOr66ZQbsLdNZOmrV4YGX50V"))
+			client.order.create({'amount': donationAmount, 'currency': 'INR',
+									'payment_capture': '1'})
+			# ----------------------------------------------------
+			client.order.create({
+			'amount': donationAmount,
+			'currency': 'INR',
+			'payment_capture': '1'
+			})
+			# ----------------------------------------------------
+			# "Saving order data on database"	
+			donorData = donor.objects.filter(Emailid=request.session['email'])[0]
+			donorData.isPaid = True
+			donorData.save()
+			del request.session['email']
+			# ----------------------------------------------------
+			return(redirect('paymentSuccess'))
+			# # # --------------------------Razorpay End--------------------------
+
+		return render(request, 'child/payment.html', {"donorData": donorData, "donationAmount": donationAmount})
+
+	return render(request, 'child/paymentStart.html')
+
+def paymentSuccess(request):
+	mainMsg = "Thanks for donating in child care"
+	return render(request, 'child/paymentSuccess.html',{'mainHeading':mainMsg})
+    
 
 def post_list(request):
 	posts=cases.objects.all()
