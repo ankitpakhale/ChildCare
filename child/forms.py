@@ -38,6 +38,7 @@ class ParentForm(forms.ModelForm):
 	Job_description=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Job Description'}))
 	adoptionreason=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Adoption Reason'}))
 	aadhar=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Aadhar No'}))
+	
 	childwanted=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Child Details'}))
 	class Meta:
 		model=parent

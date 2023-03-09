@@ -116,7 +116,9 @@ def adoptionlist(request):
 def parentform(request):
 	if request.method == "POST":
 		form = ParentForm(request.POST)
+
 		print(form, ': this is form')
+  
 		if form.is_valid():
 			child = form.save(commit=False)
 			child.save()

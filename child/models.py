@@ -75,6 +75,7 @@ class parent(models.Model):
 	Job_description=models.CharField(max_length=5000)
 	adoptionreason=models.CharField(max_length=5000)
 	aadhar=models.BooleanField(default=False)
+ 
 	childwanted=models.ForeignKey(childinfo,related_name='childwanted',on_delete=models.CASCADE)
 
 	def __str__(self):
