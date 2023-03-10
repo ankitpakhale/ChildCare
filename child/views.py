@@ -124,17 +124,29 @@ def parentform(request):
 		form = ParentForm()
 	return render(request, 'child/parentform.html', {'form': form})
 
-
 def donorform(request):
 	if request.method == "POST":
 		form = DonorForm(request.POST)
-		if form.is_valid():
-			donor = form.save(commit=False)
-			donor.save()
-			return redirect('homepage')
+		try:
+			userEmail = request.POST['Emailid'].strip()
+			if data:=donor.objects.get(Emailid = userEmail):
+				return changeDonorData(request, data)
+		except Exception:
+			if form.is_valid():
+				donorData = form.save(commit=False)
+				donorData.save()
+				return redirect('homepage')
 	else:
 		form = DonorForm()
 	return render(request, 'child/donorform.html', {'form': form})
+
+def changeDonorData(request, data):
+	data.amount = request.POST['amount']
+	data.Bank_account_no = request.POST['Bank_account_no']
+	data.IFSC_code = request.POST['IFSC_code']
+	data.Aadharcardno = request.POST['Aadharcardno']
+	data.save()
+	return redirect('homepage')
 
 
 def donorPage(request):
