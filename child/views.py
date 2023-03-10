@@ -116,9 +116,6 @@ def adoptionlist(request):
 def parentform(request):
 	if request.method == "POST":
 		form = ParentForm(request.POST)
-
-		print(form, ': this is form')
-  
 		if form.is_valid():
 			child = form.save(commit=False)
 			child.save()
@@ -135,7 +132,6 @@ def donorform(request):
 			donor = form.save(commit=False)
 			donor.save()
 			return redirect('homepage')
-
 	else:
 		form = DonorForm()
 	return render(request, 'child/donorform.html', {'form': form})
@@ -145,43 +141,46 @@ def donorPage(request):
 	donors = donor.objects.all()
 	email = request.GET.get('email')
 	if email != None:
-		request.session['email'] = email
-		return redirect("paymentdata")
+		if donor.objects.filter(Emailid = email):
+			request.session['email'] = email
+			return redirect("paymentdata")
+		return render(request, 'child/donorPage.html', {'donors': donors, 'msg': 'Please fill the donor form first'})
 	return render(request, 'child/donorPage.html', {'donors': donors})
 
+
 def paymentData(request):
-	if 'email' in request.session:
-		donorData = donor.objects.filter(Emailid=request.session['email'])[0]  
-		donationAmount = donorData.amount*100
+	if 'email' not in request.session:
+		return redirect('donorpage')
 
-		if request.method == "POST":
-			# # ---------------------------------------------------------
-			client = razorpay.Client(
-			auth=("rzp_test_qDwTmKnksUVsaC", "QOr66ZQbsLdNZOmrV4YGX50V"))
-			client.order.create({'amount': donationAmount, 'currency': 'INR',
-									'payment_capture': '1'})
-			# ----------------------------------------------------
-			client.order.create({
-			'amount': donationAmount,
-			'currency': 'INR',
-			'payment_capture': '1'
-			})
-			# ----------------------------------------------------
-			# "Saving order data on database"	
-			donorData = donor.objects.filter(Emailid=request.session['email'])[0]
-			donorData.isPaid = True
-			donorData.save()
-			del request.session['email']
-			# ----------------------------------------------------
-			return(redirect('paymentSuccess'))
-			# # # --------------------------Razorpay End--------------------------
+	donorData = donor.objects.filter(Emailid=request.session['email'])[0]
+	donationAmount = donorData.amount*100
+	if request.method == "POST":
+		return paymentComplete(donationAmount, request)
+	return render(request, 'child/payment.html', {"donorData": donorData, "donationAmount": donationAmount})
 
-		return render(request, 'child/payment.html', {"donorData": donorData, "donationAmount": donationAmount})
-
-	return render(request, 'child/paymentStart.html')
+def paymentComplete(donationAmount, request):
+	# # ---------------------------------------------------------
+	client = razorpay.Client(
+	auth=("rzp_test_qDwTmKnksUVsaC", "QOr66ZQbsLdNZOmrV4YGX50V"))
+	client.order.create({'amount': donationAmount, 'currency': 'INR',
+							'payment_capture': '1'})
+	# ----------------------------------------------------
+	client.order.create({
+	'amount': donationAmount,
+	'currency': 'INR',
+	'payment_capture': '1'
+	})
+	# ----------------------------------------------------
+	# "Saving order data on database"	
+	donorData = donor.objects.filter(Emailid=request.session['email'])[0]
+	donorData.isPaid = True
+	donorData.save()
+	del request.session['email']
+	# ----------------------------------------------------
+	return(redirect('paymentSuccess'))
 
 def paymentSuccess(request):
-	mainMsg = "Thanks for donating in child care"
+	mainMsg = "Thank you for donating in child care"
 	return render(request, 'child/paymentSuccess.html',{'mainHeading':mainMsg})
     
 
