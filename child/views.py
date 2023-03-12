@@ -119,7 +119,7 @@ def parentform(request):
 		if form.is_valid():
 			child = form.save(commit=False)
 			child.save()
-			return redirect('adoptionlist')
+			return redirect('adoption')
 	else:
 		form = ParentForm()
 	return render(request, 'child/parentform.html', {'form': form})
