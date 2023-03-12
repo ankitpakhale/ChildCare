@@ -14,14 +14,21 @@ class CommentForm(forms.ModelForm):
         fields = ('author', 'text',)
 	
 class LostForm(forms.ModelForm):
-	name=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Your Name'}))
-	cityfound=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Your City'}))
-	Detail=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Your Detail'}))
-	age=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Your Age'}))
+	name=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Name'}))
+	cityfound=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter City'}))
+	age=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Age'}))
+	profile_image=forms.ImageField()
+	Detail=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Child Details'}))
+	guardian=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":'Enter Guardian Details'}))
     
 	class Meta:
 		model = lostchild
-		fields = ('name', 'cityfound',"Detail",'age')
+		fields = ("name", "cityfound","Detail","age", "profile_image", "guardian")
+
+# class LostForm(forms.ModelForm):
+# 	class Meta:
+# 		model = lostchild
+# 		fields = ("__all__")
 
 class ChildForm(forms.ModelForm):
 	class Meta:

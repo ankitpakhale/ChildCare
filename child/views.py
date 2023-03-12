@@ -84,7 +84,7 @@ def lost(request):
 
 def addlost(request):
 	if request.method == "POST":
-		form = LostForm(request.POST)
+		form = LostForm(request.POST, request.FILES)
 		if form.is_valid():
 			child = form.save(commit=False)
 			child.save()

@@ -75,6 +75,7 @@ class parent(models.Model):
 	Job_description=models.CharField(max_length=5000)
 	adoptionreason=models.CharField(max_length=5000)
 	aadhar=models.BooleanField(default=False)
+	monthlyIncome=models.IntegerField(null=True,blank=True)
  
 	childwanted=models.ForeignKey(childinfo,related_name='childwanted',on_delete=models.CASCADE)
 
@@ -95,7 +96,7 @@ class donor(models.Model):
 	Occupation=models.CharField(max_length=50)
 	Emailid=models.CharField(max_length=50)
 
-	amount=models.IntegerField(max_length=25)
+	amount=models.IntegerField()
 	Bank_account_no=models.CharField(max_length=25)
 	IFSC_code=models.CharField(max_length=20)
 	Aadharcardno=models.CharField(max_length=20)
